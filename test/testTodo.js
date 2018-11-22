@@ -87,12 +87,12 @@ module.exports = function () {
         describe('Test API should fail at the below test', function () {
             it("should not update a todo for user(test)", function (done) {
                 this.timeout(5000);
-                newlypostedTodo.todo = makeid();
+                newlypostedTodo._id = makeid();
                 request(app).put('/api/todo').send(newlypostedTodo)
                     .end(function (err, res) {
                         expect(res.statusCode).to.equal(200);
                         expect(res.body._id).to.be.equal(undefined);
-                        newlypostedTodo = res.body;
+                        console.log(res.toString() +" sdddjdjdjdjdjdjdj")
                         done();
                     });
             });
