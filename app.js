@@ -4,8 +4,17 @@ var app = express();
 const fs = require('fs')
 const logger = require('morgan');
 
+
+//get date for creating log file by date
+var date = new Date();
+var currentDate = date.getDate() + "-"
+    + (date.getMonth()+1)  + "-"
+    + date.getFullYear();
+const logDir = __dirname.replace('config', '') + '/logs/access-' +
+    currentDate + '.log';
+
 app.use(logger('common', {
-    stream: fs.createWriteStream(__dirname + '/logs/access.log', {flags: 'a'})
+    stream: fs.createWriteStream(logDir, {flags: 'a'})
 }));
 
 var apiController = require('./controller/apiController');

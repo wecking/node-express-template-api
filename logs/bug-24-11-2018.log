@@ -1,0 +1,61 @@
+
+
+Last Sync: 24-11-2018 @ 17:2:39
+{"_id":"p0JIy","username":"test","todo":"The lion of the trib of Judia is my dad ","isDone":false,"hasAttachment":false,"__v":0}
+CastError: Cast to ObjectId failed for value "p0JIy" at path "_id" for model "Todos"
+
+Last Sync: 24-11-2018 @ 17:2:39
+{}
+Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters
+
+Last Sync: 24-11-2018 @ 17:2:39
+{"_id":"dfsdvsddsvd"}
+CastError: Cast to ObjectId failed for value "dfsdvsddsvd" at path "_id" for model "Todos"
+
+Last Sync: 24-11-2018 @ 11:4:24
+{"_id":"YpLWb","username":"test","todo":"The lion of the trib of Judia is my dad ","isDone":false,"hasAttachment":false,"__v":0}
+CastError: Cast to ObjectId failed for value "YpLWb" at path "_id" for model "Todos"
+
+Last Sync: 24-11-2018 @ 11:4:24
+{}
+Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters
+
+Last Sync: 24-11-2018 @ 11:4:24
+{"_id":"dfsdvsddsvd"}
+CastError: Cast to ObjectId failed for value "dfsdvsddsvd" at path "_id" for model "Todos"
+
+Last Sync: 24-11-2018 @ 11:5:24
+{"_id":"T0eiG","username":"test","todo":"The lion of the trib of Judia is my dad ","isDone":false,"hasAttachment":false,"__v":0}
+CastError: Cast to ObjectId failed for value "T0eiG" at path "_id" for model "Todos"
+
+Last Sync: 24-11-2018 @ 11:5:24
+{}
+Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters
+
+Last Sync: 24-11-2018 @ 11:5:24
+{"_id":"dfsdvsddsvd"}
+CastError: Cast to ObjectId failed for value "dfsdvsddsvd" at path "_id" for model "Todos"
+
+Last Sync: 24-11-2018 @ 17:6:14
+{"_id":"TCocR","username":"test","todo":"The lion of the trib of Judia is my dad ","isDone":false,"hasAttachment":false,"__v":0}
+CastError: Cast to ObjectId failed for value "TCocR" at path "_id" for model "Todos"
+
+Last Sync: 24-11-2018 @ 17:6:14
+{}
+Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters
+
+Last Sync: 24-11-2018 @ 17:6:14
+{"_id":"dfsdvsddsvd"}
+CastError: Cast to ObjectId failed for value "dfsdvsddsvd" at path "_id" for model "Todos"
+
+Last Sync: 24-11-2018 @ 17:6:35
+{"_id":"tBOfZ","username":"test","todo":"The lion of the trib of Judia is my dad ","isDone":false,"hasAttachment":false,"__v":0}
+CastError: Cast to ObjectId failed for value "tBOfZ" at path "_id" for model "Todos"
+
+Last Sync: 24-11-2018 @ 17:6:35
+{}
+Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters
+
+Last Sync: 24-11-2018 @ 17:6:35
+{"_id":"dfsdvsddsvd"}
+CastError: Cast to ObjectId failed for value "dfsdvsddsvd" at path "_id" for model "Todos"

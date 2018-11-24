@@ -1,15 +1,18 @@
 var configValues = require('./config');
 var fs = require('fs');
 
-const logDir = __dirname.replace('config', '') + 'logs/bug.log';
+var date = new Date();
 
-var currentdate = new Date();
-var datetime = "Last Sync: " + currentdate.getDate() + "/"
-    + (currentdate.getMonth()+1)  + "/"
-    + currentdate.getFullYear() + " @ "
-    + currentdate.getHours() + ":"
-    + currentdate.getMinutes() + ":"
-    + currentdate.getSeconds();
+var currentDate = date.getDate() + "-"
+    + (date.getMonth()+1)  + "-"
+    + date.getFullYear();
+
+var datetime = "Last Sync: " + currentDate + " @ "
+    + date.getHours() + ":"
+    + date.getMinutes() + ":"
+    + date.getSeconds();
+const logDir = __dirname.replace('config', '') + 'logs/bug-' +
+    currentDate + '.log';
 
 
 
