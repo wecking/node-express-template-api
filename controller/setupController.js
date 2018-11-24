@@ -1,5 +1,6 @@
 var Todos = require('../model/todoModel');
 
+//Strictly meant to populate the database with test data
 module.exports = function (app) {
 
     //Seed Database

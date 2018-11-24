@@ -1,11 +1,19 @@
 var express = require('express');
 var app = express();
 
+const fs = require('fs')
+const logger = require('morgan');
+
+app.use(logger('common', {
+    stream: fs.createWriteStream(__dirname + '/logs/access.log', {flags: 'a'})
+}));
+
 var apiController = require('./controller/apiController');
 
 var config = require('./config');
 
 var mongoose = require('mongoose');
+
 
 var setUpController =
     require('./controller/setupController');
