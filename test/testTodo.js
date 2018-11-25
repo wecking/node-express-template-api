@@ -33,16 +33,11 @@ module.exports = function () {
                     });
             });
 
-
-
-
-
             it("should create a todo with user(test)", function (done) {
                 this.timeout(5000);
-                console.log("success create")
                 request(app).post('/api/todo').send(newTodo)
                     .end(function (err, res) {
-                        expect(res.statusCode).to.equal(200);
+                        expect(res.statusCode).to.equal(201);
                         expect(res.body.username).to.be.equal('test');
                         newlypostedTodo = res.body;
                         done();
@@ -90,19 +85,31 @@ module.exports = function () {
                 newlypostedTodo._id = makeid();
                 request(app).put('/api/todo').send(newlypostedTodo)
                     .end(function (err, res) {
-                        expect(res.statusCode).to.equal(200);
+                        expect(res.statusCode).to.equal(500);
                         expect(res.body._id).to.be.equal(undefined);
-                        console.log(res.toString() +" sdddjdjdjdjdjdjdj")
                         done();
                     });
             });
-            it("should return an empty array for user(unknowuser) todo's", function (done) {
+            it("should not update a todo for user(test)", function (done) {
+                this.timeout(5000);
+                newlypostedTodo._id = makeid();
+                request(app).put('/api/todo').send({
+                    username : 'test',
+                    isDone: false,
+                    hasAttachment: false
+                }).end(function (err, res) {
+                        expect(res.statusCode).to.equal(415);
+                        expect(res.body.result).to.be
+                            .equal("Insertion Failed");
+                        done();
+                    });
+            });
+            it("should return an empty {} for user(unknowuser) todo's", function (done) {
                 this.timeout(5000);
                 request(app).get('/api/todos/unknowuser')
                     .end(function (err, res) {
-                        expect(res.statusCode).to.equal(200);
-                        expect(res.body).to.be.an('array');
-                        expect(res.body.length).to.be.equal(0);
+                        expect(res.statusCode).to.equal(404);
+                        expect(res.body).to.be.empty;
                         done();
                     });
             });
@@ -111,16 +118,16 @@ module.exports = function () {
                 newlypostedTodo._id = "dfsdvsddsvd";
                 request(app).get('/api/todo/' + newlypostedTodo._id.toString())
                     .end(function (err, res) {
-                        expect(res.statusCode).to.equal(200);
+                        expect(res.statusCode).to.equal(404);
                         expect(res.body._id).to.be.equal(undefined);
                         done();
                     });
             });
-            it("should not delete any todo with id => ddddd", function (done) {
+            it("should not delete any todo with wrong id => ddddd", function (done) {
                 this.timeout(5000);
                 request(app).delete('/api/todo').send({_id: newlypostedTodo._id})
                     .end(function (err, res) {
-                        expect(res.statusCode).to.equal(200);
+                        expect(res.statusCode).to.equal(409);
                         expect(res.body._id).to.be.equal(undefined);
                         done();
                     });
@@ -130,8 +137,7 @@ module.exports = function () {
                 var todo = {};
                 request(app).post('/api/todo').send(todo)
                     .end(function (err, res) {
-                        console.log(res.body)
-                        expect(res.statusCode).to.equal(200);
+                        expect(res.statusCode).to.equal(400);
                         expect(res.body.result).to.be.equal("Insertion Failed");
                         newlypostedTodo = res.body;
                         done();

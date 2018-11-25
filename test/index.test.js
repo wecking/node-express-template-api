@@ -7,5 +7,5 @@ testTodo();
 
 setTimeout(function() {
     process.exit(1)
-}, 13000);
+}, 10000);
 
