@@ -8,7 +8,7 @@ module.exports = function (app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
 
-    app.get('/api/todos/:username', function (req, res) {
+    app.get('/api/todo/:username', function (req, res) {
         todoModel.find({username: req.params.username},
             function (err, todos) {
 
