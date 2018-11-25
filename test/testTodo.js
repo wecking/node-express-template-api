@@ -22,7 +22,6 @@ module.exports = function () {
 
         describe('endpoints should perform below actions', function () {
             it("should get all tasks user(test) todo's", function (done) {
-                this.timeout(5000);
                 request(app).get('/api/todos/test')
                     .end(function (err, res) {
                         expect(res.statusCode).to.equal(200);
@@ -34,7 +33,6 @@ module.exports = function () {
             });
 
             it("should create a todo with user(test)", function (done) {
-                this.timeout(5000);
                 request(app).post('/api/todo').send(newTodo)
                     .end(function (err, res) {
                         expect(res.statusCode).to.equal(201);
@@ -45,8 +43,6 @@ module.exports = function () {
             });
 
             it("should Get a todo for an id", function (done) {
-                this.timeout(5000);
-
                 request(app).get('/api/todo/' + newlypostedTodo._id.toString())
                     .end(function (err, res) {
                         expect(res.statusCode).to.equal(200);
@@ -57,7 +53,6 @@ module.exports = function () {
             });
 
             it("should Update a todo for user(test)", function (done) {
-                this.timeout(5000);
                 newlypostedTodo.todo = makeid();
                 request(app).put('/api/todo').send(newlypostedTodo)
                     .end(function (err, res) {
@@ -68,7 +63,6 @@ module.exports = function () {
                     });
             });
             it("should delete a todo with user(test)", function (done) {
-                this.timeout(5000);
                 request(app).delete('/api/todo').send({_id: newlypostedTodo._id})
                     .end(function (err, res) {
                         expect(res.statusCode).to.equal(200);
@@ -81,7 +75,6 @@ module.exports = function () {
 
         describe('Test API should fail at the below test', function () {
             it("should not update a todo for user(test)", function (done) {
-                this.timeout(5000);
                 newlypostedTodo._id = makeid();
                 request(app).put('/api/todo').send(newlypostedTodo)
                     .end(function (err, res) {
@@ -91,7 +84,6 @@ module.exports = function () {
                     });
             });
             it("should not update a todo for user(test)", function (done) {
-                this.timeout(5000);
                 newlypostedTodo._id = makeid();
                 request(app).put('/api/todo').send({
                     username : 'test',
@@ -105,7 +97,6 @@ module.exports = function () {
                     });
             });
             it("should return an empty {} for user(unknowuser) todo's", function (done) {
-                this.timeout(5000);
                 request(app).get('/api/todos/unknowuser')
                     .end(function (err, res) {
                         expect(res.statusCode).to.equal(404);
@@ -114,7 +105,6 @@ module.exports = function () {
                     });
             });
             it("should return null for empty todo for an id", function (done) {
-                this.timeout(5000);
                 newlypostedTodo._id = "dfsdvsddsvd";
                 request(app).get('/api/todo/' + newlypostedTodo._id.toString())
                     .end(function (err, res) {
@@ -124,7 +114,6 @@ module.exports = function () {
                     });
             });
             it("should not delete any todo with wrong id => ddddd", function (done) {
-                this.timeout(5000);
                 request(app).delete('/api/todo').send({_id: newlypostedTodo._id})
                     .end(function (err, res) {
                         expect(res.statusCode).to.equal(409);
@@ -133,7 +122,6 @@ module.exports = function () {
                     });
             });
             it("should create a todo with user(test)", function (done) {
-                this.timeout(5000);
                 var todo = {};
                 request(app).post('/api/todo').send(todo)
                     .end(function (err, res) {
@@ -148,7 +136,6 @@ module.exports = function () {
 
         describe('Test Demo data', function () {
             it("should generate todos for user(test)", function (done) {
-                this.timeout(5000);
                 request(app).get('/api/setUpTodo')
                     .end(function (err, res) {
                         expect(res.statusCode).to.equal(200);
@@ -158,7 +145,6 @@ module.exports = function () {
                     });
             });
             it("should delete all test todos", function (done) {
-                this.timeout(5000);
                 request(app).delete('/api/delete/setUpTodo').send({_id: newlypostedTodo._id})
                     .end(function (err, res) {
                         expect(res.statusCode).to.equal(200);
