@@ -1,0 +1,221 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Yet Another Node.js and Express Todo Application API",
+    "description": "Yet Another Node.js and Express Todo Application API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "Todo",
+      "description": "API for todo in the system"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/todo": {
+      "post": {
+        "tags": [
+          "Todo"
+        ],
+        "description": "Create new todo in system",
+        "parameters": [
+          {
+            "name": "todo",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Todo"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "New todo is created",
+            "schema": {
+              "$ref": "#/definitions/Todo"
+            }
+          },
+          "500": {
+            "description": "Database Isertion Error"
+          },
+          "400": {
+            "description": "All filed are required"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Todo"
+        ],
+        "description": "Update an existing todo in system",
+        "parameters": [
+          {
+            "name": "todo",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Todo"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo updated is created",
+            "schema": {
+              "$ref": "#/definitions/Todo"
+            }
+          },
+          "415": {
+            "description": "All filed are required"
+          },
+          "500": {
+            "description": "Database Isertion Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Todo"
+        ],
+        "description": "Delete a todo with ID",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "body",
+            "required": true,
+            "description": "ID of todo that we want to delete",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo deleted",
+            "schema": {
+              "$ref": "#/definitions/Todo"
+            }
+          },
+          "409": {
+            "description": "Database Isertion Error"
+          }
+        }
+      }
+    },
+    "/todos/{username}": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "username of user that we want to find his todos",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Get todos with given username",
+        "responses": {
+          "200": {
+            "description": "Username is found",
+            "schema": {
+              "$ref": "#/definitions/Todos"
+            }
+          },
+          "404": {
+            "description": "no todo found for user "
+          },
+          "500": {
+            "description": "Database Isertion Error"
+          }
+        }
+      }
+    },
+    "/todos/{_id}": {
+      "parameters": [
+        {
+          "name": "_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of todo that we want to get",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Get todos with given ID",
+        "responses": {
+          "200": {
+            "description": "Todo is found",
+            "schema": {
+              "$ref": "#/definitions/Todo"
+            }
+          },
+          "404": {
+            "description": "no todo found for ID "
+          },
+          "500": {
+            "description": "Database Isertion Error"
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "Todo": {
+      "required": [
+        "username",
+        "todo",
+        "isDone",
+        "hasAttachment"
+      ],
+      "properties": {
+        "username": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "todo": {
+          "type": "string"
+        },
+        "isDone": {
+          "type": "boolean"
+        },
+        "hasAttachment": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Todos": {
+      "type": "array",
+      "$ref": "#/definitions/Todo"
+    }
+  }
+}
+
+
+
