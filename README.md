@@ -1,7 +1,7 @@
 # Nodejs, ExpressJs and MongoDB API development template with basic Todo api
 
 ## Usage
-##For a quick Node js, ExpressJs and MongoDB project startup
+## For a quick Node js, ExpressJs and MongoDB project startup
 >Start adding model, controllers, test and config js files, just connect and use your newly added js files
 
 ### Prerequisites
