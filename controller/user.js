@@ -13,11 +13,11 @@ module.exports = function(app) {
 	app.get('/api/user', function(req, res){
 	// check if the user has an auto login key saved in a cookie //
 		if (req.cookies.login == undefined){
-            console.log('Hello - Please Login To Your Account');
             res.status(400).send({ title: 'Hello - Please Login To Your Account' });
 		}	else{
 	// attempt automatic login //
-			AM.validateLoginKey(req.cookies.login, req.ip, function(e, o){
+            var ip = getIP();
+			AM.validateLoginKey(req.cookies.login, ip, function(e, o){
 				if (o){
 					AM.autoLogin(o.user, o.pass, function(o){
 						req.session.user = o;
@@ -62,7 +62,7 @@ module.exports = function(app) {
 			res.redirect('/api/user/');
 		}	else{
 			//perform get home action here
-            res.status(200).send("User already logged in");
+            res.status(200).send({title : "User already logged in"});
 		}
 	});
 	
@@ -92,6 +92,7 @@ module.exports = function(app) {
 */
 	
 	app.post('/api/user/signup', function(req, res){
+		console.log("ssssssssssssssssssssssss")
 		AM.addNewAccount({
 			name 	: req.body['name'],
 			email 	: req.body['email'],
@@ -184,5 +185,34 @@ module.exports = function(app) {
 	});
 	
 	app.get('*', function(req, res) { res.status(404).send('Page Not Found'); });
+
+	function getIP() {
+        'use strict';
+
+        var os = require('os');
+        // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+        var result;
+
+        var ifaces = os.networkInterfaces();
+        Object.keys(ifaces).forEach(function (ifname) {
+
+            var alias = 0;
+            ifaces[ifname].forEach(function (iface) {
+                if ('IPv4' !== iface.family || iface.internal !== false) {
+                    // this single interface has multiple ipv4 addresses
+                    return;
+
+                }
+                if (alias >= 1) {
+                    result = iface.address;
+                } else {
+                    // this interface has only one ipv4 adress
+                    result = iface.address;
+                }
+                ++alias;
+            });
+        });
+        return result;
+    }
 
 };

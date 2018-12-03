@@ -7,7 +7,7 @@ var MongoStore = require('connect-mongo')(session);
 var app = express();
 
 const fs = require('fs')
-const logger = require('morgan');
+// const logger = require('morgan');
 
 //Setup swagger documentation UI
 var swaggerUi = require('swagger-ui-express'),
@@ -22,9 +22,9 @@ var currentDate = date.getDate() + "-"
     + date.getFullYear();
 const logDir = __dirname.replace('config', '') + '/logs/access-' +
     currentDate + '.log';
-app.use(logger('common', {
-    stream: fs.createWriteStream(logDir, {flags: 'a'})
-}));
+// app.use(logger('common', {
+//     stream: fs.createWriteStream(logDir, {flags: 'a'})
+// }));
 
 app.locals.pretty = true;
 app.set('port', process.env.PORT || 3000);
@@ -54,8 +54,11 @@ if (app.get('env') === 'live'){
 
 app.use('/assets', express.static(__dirname + '/public'));
 
-// mongoose.connect(config.getDbConnectionString(),
-//     { useNewUrlParser: true });
+mongoose.connect(config.getDbConnectionString(),
+    { useNewUrlParser: true });
+
+
+
 
 app.use(session({
         secret: 'faeb4453e5d14fe6f6d04637f78077c76c73d1b4',
@@ -68,8 +71,8 @@ app.use(session({
 
 require('./controller/user')(app);
 
-setUpController(app);
-apiController(app);
+// setUpController(app);
+// apiController(app);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));

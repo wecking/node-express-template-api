@@ -1,9 +1,10 @@
 'use strict';
 
-var testTodo = require('./testTodo');
+// var testTodo = require('./testTodo');
+var userTest = require('./userTest');
 
 
-testTodo();
+userTest();
 
 setTimeout(function() {
     process.exit(1)

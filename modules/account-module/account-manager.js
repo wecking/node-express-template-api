@@ -2,19 +2,21 @@
 const crypto 		= require('crypto');
 const moment 		= require('moment');
 const MongoClient 	= require('mongodb').MongoClient;
+var userModel = require('../../model/userModel');
 
-var db, accounts;
-MongoClient.connect(process.env.DB_URL, { useNewUrlParser: true }, function(e, client) {
-	if (e){
-		console.log(e);
-	}	else{
-		db = client.db(process.env.DB_NAME);
-		accounts = db.collection('accounts');
-	// index fields 'user' & 'email' for faster new account validation //
-		accounts.createIndex({user: 1, email: 1});
-		console.log('mongo :: connected to database :: "'+process.env.DB_NAME+'"');
-	}
-});
+// userModel.create({
+//     user : 'test',
+//     email: 'The',
+//     pass: '12345',
+//     country: 'Nigeria',
+//     name: 'kingsley'
+// },function (err, result) {
+// 	console.log("Erro " +err )
+//     console.log("Result " +result )
+//
+// })
+
+var db, accounts = userModel;
 
 const guid = function(){return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;return v.toString(16);});}
 
@@ -53,6 +55,7 @@ exports.manualLogin = function(user, pass, callback)
 exports.generateLoginKey = function(user, ipAddress, callback)
 {
 	let cookie = guid();
+	console.log('generated cookies' + cookie)
 	accounts.findOneAndUpdate({user:user}, {$set:{
 		ip : ipAddress,
 		cookie : cookie
@@ -64,7 +67,7 @@ exports.generateLoginKey = function(user, ipAddress, callback)
 exports.validateLoginKey = function(cookie, ipAddress, callback)
 {
 // ensure the cookie maps to the user's last recorded ip address //
-	accounts.findOne({cookie:cookie, ip:ipAddress}, callback);
+	accounts.find({cookie:cookie, ip:ipAddress}, callback);
 }
 
 exports.generatePasswordKey = function(email, ipAddress, callback)
@@ -96,17 +99,22 @@ exports.addNewAccount = function(newData, callback)
 {
 	accounts.findOne({user:newData.user}, function(e, o) {
 		if (o){
-			callback('username-taken');
-		}	else{
+            console.log("ddddddjjjjjjjjjjdd user taken" + Object.keys(o).length)
+            callback('username-taken');
+
+        }	else{
 			accounts.findOne({email:newData.email}, function(e, o) {
 				if (o){
-					callback('email-taken');
+                    console.log("ddddddjjjjjjjjjjdd email taken" )
+
+                    callback('email-taken');
 				}	else{
 					saltAndHash(newData.pass, function(hash){
 						newData.pass = hash;
 					// append date stamp when record was created //
 						newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
-						accounts.insertOne(newData, callback);
+						console.log("ddddddjjjjjjjjjjdd" + newData)
+						accounts.create(newData, callback);
 					});
 				}
 			});
@@ -149,7 +157,7 @@ exports.updatePassword = function(passKey, newPass, callback)
 
 exports.getAllRecords = function(callback)
 {
-	accounts.find().toArray(
+	accounts.findOne().toArray(
 		function(e, res) {
 		if (e) callback(e)
 		else callback(null, res)
