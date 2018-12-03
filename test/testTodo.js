@@ -26,7 +26,7 @@ module.exports = function () {
                     .end(function (err, res) {
                         expect(res.statusCode).to.equal(200);
                         expect(res.body).to.be.an('array');
-                        expect(res.body.length).to.be.equal(3);
+                        expect(res.body.length).to.be.equal(28);
                         userTestTodos = res.body;
                         done();
                     });
