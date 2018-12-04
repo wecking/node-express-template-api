@@ -14,6 +14,7 @@ module.exports = function(app) {
 	// check if the user has an auto login key saved in a cookie //
 		if (req.cookies.login == undefined){
             res.status(400).send({ title: 'Hello - Please Login To Your Account' });
+            config.logBug(req, { title: 'Hello - Please Login To Your Account' });
 		}	else{
 	// attempt automatic login //
             var ip = getIP();
@@ -24,6 +25,7 @@ module.exports = function(app) {
 						res.redirect('/api/user/home');
 					});
 				}	else{
+                    config.logBug(req, { title: 'Hello - Please Login To Your Account' });
                     res.status(400).send({ title: 'Hello - Please Login To Your Account' });
 				}
 			});
@@ -34,11 +36,13 @@ module.exports = function(app) {
 		AM.manualLogin(req.body['user'], req.body['pass'], function(e, o){
 			if (!o){
 				res.status(400).send(e);
-			}	else{
+                config.logBug(req, e);
+            }	else{
 				req.session.user = o;
 				if (req.body['remember-me'] == 'false'){
 					res.status(200).send(o);
-				}	else{
+                    config.logBug(req, o);
+                }	else{
 					AM.generateLoginKey(o.user, req.ip, function(key){
 						res.cookie('login', key, { maxAge: 900000 });
 						res.status(200).send(o);
@@ -79,7 +83,8 @@ module.exports = function(app) {
 			}, function(e, o){
 				if (e){
 					res.status(400).send('error-updating-account');
-				}	else{
+                    config.logBug(req, 'error-updating-account');
+                }	else{
 					req.session.user = o.value;
 					res.status(200).send('ok');
 				}
@@ -101,7 +106,8 @@ module.exports = function(app) {
 		}, function(e){
 			if (e){
 				res.status(400).send(e);
-			}	else{
+                config.logBug(req, e);
+            }	else{
 				res.status(200).send('ok');
 			}
 		});
@@ -118,14 +124,16 @@ module.exports = function(app) {
 		AM.generatePasswordKey(email, ip, function(e, account){
 			if (e){
 				res.status(400).send(e);
-			}	else{
+                config.logBug(req, e);
+            }	else{
 				EM.dispatchResetPasswordLink(account, function(e, m){
 			// TODO this callback takes a moment to return, add a loader to give user feedback //
 					if (!e){
 						res.status(200).send('ok');
 					}	else{
 						for (k in e) console.log('ERROR : ', k, e[k]);
-						res.status(400).send('unable to dispatch password reset');
+                        config.logBug(req, 'unable to dispatch password reset');
+                        res.status(400).send('unable to dispatch password reset');
 					}
 				});
 			}
@@ -154,7 +162,8 @@ module.exports = function(app) {
 			if (o){
 				res.status(200).send('ok');
 			}	else{
-				res.status(400).send('unable to update password');
+                config.logBug(req, 'unable to update password');
+                res.status(400).send('unable to update password');
 			}
 		})
 	});
@@ -177,7 +186,8 @@ module.exports = function(app) {
 				res.clearCookie('login');
 				req.session.destroy(function(e){ res.status(200).send('ok'); });
 			}	else{
-				res.status(400).send('record not found');
+                config.logBug(req, 'record not found');
+                res.status(400).send('record not found');
 			}
 		});
 	});
