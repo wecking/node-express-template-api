@@ -58,7 +58,7 @@ module.exports = function(app) {
 */
 	
 	app.get('/api/user/home', function(req, res) {
-		if (req.session.user == null){
+        if (req.session.user == null){
 			res.redirect('/api/user/');
 		}	else{
 			//perform get home action here
@@ -92,7 +92,6 @@ module.exports = function(app) {
 */
 	
 	app.post('/api/user/signup', function(req, res){
-		console.log("ssssssssssssssssssssssss")
 		AM.addNewAccount({
 			name 	: req.body['name'],
 			email 	: req.body['email'],
@@ -114,7 +113,9 @@ module.exports = function(app) {
 
 	app.post('/api/user/lost-password', function(req, res){
 		let email = req.body['email'];
-		AM.generatePasswordKey(email, req.ip, function(e, account){
+        var ip = getIP();
+
+		AM.generatePasswordKey(email, ip, function(e, account){
 			if (e){
 				res.status(400).send(e);
 			}	else{
@@ -131,7 +132,7 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get('/api/user/reset-password', function(req, res) {
+	app.get('/api/user/reset-password/:key', function(req, res) {
 		AM.validatePasswordKey(req.query['key'], req.ip, function(e, o){
 			if (e || o == null){
 				res.redirect('/api/user/');
@@ -145,7 +146,8 @@ module.exports = function(app) {
 	
 	app.post('/api/user/reset-password', function(req, res) {
 		let newPass = req.body['pass'];
-		let passKey = req.session.passKey;
+		// let passKey = req.session.passKey;
+        let passKey = req.query['key'];
 	// destory the session immediately after retrieving the stored passkey //
 		req.session.destroy();
 		AM.updatePassword(passKey, newPass, function(e, o){
@@ -164,6 +166,8 @@ module.exports = function(app) {
 	app.get('/api/user/print', function(req, res) {
 		AM.getAllRecords( function(e, accounts){
 			//Get all records
+			console.log(accounts)
+            res.status(200).send(accounts);
 		})
 	});
 	

@@ -77,8 +77,10 @@ exports.generatePasswordKey = function(email, ipAddress, callback)
 		ip : ipAddress,
 		passKey : passKey
 	}, $unset:{cookie:''}}, {returnOriginal : false}, function(e, o){
-		if (o.value != null){
-			callback(null, o.value);
+		console.log(e)
+		console.log(o)
+		if (o != null){
+			callback(null, o);
 		}	else{
 			callback(e || 'account not found');
 		}
@@ -89,7 +91,7 @@ exports.validatePasswordKey = function(passKey, ipAddress, callback)
 {
 // ensure the passKey maps to the user's last recorded ip address //
 	accounts.findOne({passKey:passKey, ip:ipAddress}, callback);
-}
+};
 
 /*
 	record insertion, update & deletion methods

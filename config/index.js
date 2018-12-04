@@ -20,7 +20,7 @@ module.exports = {
     getDbConnectionString : function (){
         return 'mongodb://' + configValues.username + ':'
          + configValues.password +
-            '@ds041347.mlab.com:41347/todo12345678';
+            '@ds019866.mlab.com:19866/user111';
     },
 
     logBug : function (req, err) {
