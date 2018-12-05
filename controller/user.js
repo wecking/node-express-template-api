@@ -1,5 +1,5 @@
 
-var CT = require('../modules/account-module/country-list');
+var CT = require('../modules/account-module/state-list');
 var AM = require('../modules/account-module/account-manager');
 var EM = require('../modules/account-module/email-dispatcher');
 var config = require('../config');
@@ -79,14 +79,14 @@ module.exports = function(app) {
 				name	: req.body['name'],
 				email	: req.body['email'],
 				pass	: req.body['pass'],
-				country	: req.body['country']
+				state	: req.body['state']
 			}, function(e, o){
 				if (e){
 					res.status(400).send('error-updating-account');
                     config.logBug(req, 'error-updating-account');
                 }	else{
 					req.session.user = o.value;
-					res.status(200).send('ok');
+					res.status(200).send('user profile updated');
 				}
 			});
 		}
@@ -102,13 +102,13 @@ module.exports = function(app) {
 			email 	: req.body['email'],
 			user 	: req.body['user'],
 			pass	: req.body['pass'],
-			country : req.body['country']
+			state : req.body['state']
 		}, function(e){
 			if (e){
 				res.status(400).send(e);
                 config.logBug(req, e);
             }	else{
-				res.status(200).send('ok');
+				res.status(201).send('user created');
 			}
 		});
 	});
@@ -160,7 +160,7 @@ module.exports = function(app) {
 		req.session.destroy();
 		AM.updatePassword(passKey, newPass, function(e, o){
 			if (o){
-				res.status(200).send('ok');
+				res.status(200).send('password reset email successful');
 			}	else{
                 config.logBug(req, 'unable to update password');
                 res.status(400).send('unable to update password');
@@ -184,10 +184,10 @@ module.exports = function(app) {
 		AM.deleteAccount(req.session.user._id, function(e, obj){
 			if (!e){
 				res.clearCookie('login');
-				req.session.destroy(function(e){ res.status(200).send('ok'); });
+				req.session.destroy(function(e){ res.status(200).send('Account Deleted'); });
 			}	else{
                 config.logBug(req, 'record not found');
-                res.status(400).send('record not found');
+                res.status(404).send('record not found');
 			}
 		});
 	});

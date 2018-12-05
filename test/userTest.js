@@ -19,7 +19,7 @@ var newUser = {
     user : 'comtge76',
     email: 'comejl,76',
     pass: '123234kl5j',
-    country: 'Nigeria',
+    state: 'Nigeria',
     name: 'kingslj,ly'
 };
 
@@ -27,7 +27,7 @@ var newUser1 = {
     user : 'comhje76',
     email: 'comkle76',
     pass: '12323fg45j',
-    country: 'Nigeria',
+    state: 'Nigeria',
     name: 'kingsmnly'
 };
 
@@ -42,7 +42,7 @@ module.exports = function () {
             it("Should create a new user", function (done) {
                 request(app).post('/api/user/signup').send(newUser)
                     .end(function (err, res) {
-                        expect(res.statusCode).to.equal(200);
+                        expect(res.statusCode).to.equal(201);
                         userTest = res.body;
                         done();
                     });
@@ -131,7 +131,7 @@ module.exports = function () {
             it("Should create a new user", function (done) {
                 request(app).post('/api/user/signup').send(newUser1)
                     .end(function (err, res) {
-                        expect(res.statusCode).to.equal(200);
+                        expect(res.statusCode).to.equal(201);
                         userTest = res.body;
                         done();
                     });
@@ -201,7 +201,7 @@ module.exports = function () {
                 newUser1.user = makeid();
                 request(app).post('/api/user/signup').send(newUser1)
                     .end(function (err, res) {
-                        expect(res.statusCode).to.equal(200);
+                        expect(res.statusCode).to.equal(201);
                         userTest = res.body;
                         done();
                     });
@@ -239,7 +239,7 @@ module.exports = function () {
                 newUser1.user = makeid();
                 request(app).post('/api/user/signup').send(newUser1)
                     .end(function (err, res) {
-                        expect(res.statusCode).to.equal(200);
+                        expect(res.statusCode).to.equal(201);
                         userTest = res.body;
                         done();
                     });

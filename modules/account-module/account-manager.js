@@ -8,7 +8,7 @@ var userModel = require('../../model/userModel');
 //     user : 'test',
 //     email: 'The',
 //     pass: '12345',
-//     country: 'Nigeria',
+//     state: 'Nigeria',
 //     name: 'kingsley'
 // },function (err, result) {
 // 	console.log("Erro " +err )
@@ -55,7 +55,6 @@ exports.manualLogin = function(user, pass, callback)
 exports.generateLoginKey = function(user, ipAddress, callback)
 {
 	let cookie = guid();
-	console.log('generated cookies' + cookie)
 	accounts.findOneAndUpdate({user:user}, {$set:{
 		ip : ipAddress,
 		cookie : cookie
@@ -77,8 +76,6 @@ exports.generatePasswordKey = function(email, ipAddress, callback)
 		ip : ipAddress,
 		passKey : passKey
 	}, $unset:{cookie:''}}, {returnOriginal : false}, function(e, o){
-		console.log(e)
-		console.log(o)
 		if (o != null){
 			callback(null, o);
 		}	else{
@@ -101,21 +98,17 @@ exports.addNewAccount = function(newData, callback)
 {
 	accounts.findOne({user:newData.user}, function(e, o) {
 		if (o){
-            console.log("ddddddjjjjjjjjjjdd user taken" + Object.keys(o).length)
             callback('username-taken');
 
         }	else{
 			accounts.findOne({email:newData.email}, function(e, o) {
 				if (o){
-                    console.log("ddddddjjjjjjjjjjdd email taken" )
-
                     callback('email-taken');
 				}	else{
 					saltAndHash(newData.pass, function(hash){
 						newData.pass = hash;
 					// append date stamp when record was created //
 						newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
-						console.log("ddddddjjjjjjjjjjdd" + newData)
 						accounts.create(newData, callback);
 					});
 				}
@@ -130,7 +123,7 @@ exports.updateAccount = function(newData, callback)
 		var o = {
 			name : data.name,
 			email : data.email,
-			country : data.country
+			state : data.state
 		}
 		if (data.pass) o.pass = data.pass;
 		accounts.findOneAndUpdate({_id:getObjectId(data.id)}, {$set:o}, {returnOriginal : false}, callback);

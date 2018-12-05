@@ -8,5 +8,5 @@ userTest();
 
 setTimeout(function() {
     process.exit(1)
-}, 12000);
+}, 30000);
 

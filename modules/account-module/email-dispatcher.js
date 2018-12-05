@@ -5,21 +5,24 @@ module.exports = EM;
 EM.server = require("emailjs/email").server.connect(
 {
 	host 	    : process.env.NL_EMAIL_HOST || 'smtp.gmail.com',
-	user 	    : process.env.NL_EMAIL_USER || 'your-email-address@gmail.com',
-	password    : process.env.NL_EMAIL_PASS || '1234',
+	user 	    : process.env.NL_EMAIL_USER || 'wecking1@gmail.com',
+	password    : process.env.NL_EMAIL_PASS || 'wecking1chigozie1',
 	ssl		    : true
 });
 
 EM.dispatchResetPasswordLink = function(account, callback)
 {
 	EM.server.send({
-		from         : process.env.NL_EMAIL_FROM || 'Node Login <do-not-reply@gmail.com>',
+		from         : process.env.NL_EMAIL_FROM || "App Name <do-not-reply@gmail.com>",
 		to           : account.email,
 		subject      : 'Password Reset',
 		text         : 'something went wrong... :(',
 		attachment   : EM.composeEmail(account)
 	}, callback );
 }
+
+// 'testingnewuser4@gmail.com',
+//     password    : process.env.NL_EMAIL_PASS || 'amanagu123'
 
 EM.composeEmail = function(o)
 {
@@ -29,7 +32,7 @@ EM.composeEmail = function(o)
 		html += "Your username is <b>"+o.user+"</b><br><br>";
 		html += "<a href='"+baseurl+'/api/user/reset-password?key='+o.passKey+"'>Click here to reset your password</a><br><br>";
 		html += "Cheers,<br>";
-		html += "<a href='https://braitsch.io'>braitsch</a><br><br>";
+		html += "<a href='https://braitsch.io'>wecking</a><br><br>";
 		html += "</body></html>";
 	return [{data:html, alternative:true}];
 }
