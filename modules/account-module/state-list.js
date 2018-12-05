@@ -1,6 +1,6 @@
 
 module.exports = [
-    {short:"  " , name:"Please select a country"},
+    {short:"  " , name:"Please select a state"},
     {short:"AF" , name:"Afghanistan"},
     {short:"AL" , name:"Albania"},
     {short:"DZ" , name:"Algeria"},
