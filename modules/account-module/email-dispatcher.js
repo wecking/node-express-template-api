@@ -5,8 +5,8 @@ module.exports = EM;
 EM.server = require("emailjs/email").server.connect(
 {
 	host 	    : process.env.NL_EMAIL_HOST || 'smtp.gmail.com',
-	user 	    : process.env.NL_EMAIL_USER || 'wecking1@gmail.com',
-	password    : process.env.NL_EMAIL_PASS || 'wecking1chigozie1',
+	user 	    : process.env.NL_EMAIL_USER || 'Your email',
+	password    : process.env.NL_EMAIL_PASS || 'ddddddd',
 	ssl		    : true
 });
 
