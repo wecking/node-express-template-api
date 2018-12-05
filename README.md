@@ -9,11 +9,42 @@
 Node JS
 
 
-## Install
+## Installation & Setup
+1. Install [Node.js](https://nodejs.org/) & [MongoDB](https://www.mongodb.org/) if you haven't already.
+2. Clone this repository and install its dependencies.
+		
+		> git clone git@github.com:wecking/node-express-template-api.git
+		> cd node-express-template-api
+		> npm install
+		
+3. In a separate shell start MongoDB.
 
-```sh
-npm install
-```
+		> mongod
+
+4. From within the node-express-template-api directory start the server.
+
+		> node app.js
+		
+5. Open a browser window and navigate to: [localhost:3000/api-docs](localhost:3000/api-docs) For API Documentation
+
+## Password Retrieval
+
+To enable the password retrieval feature it is recommended that you create environment variables for your credentials instead of hard coding them into the [email dispatcher module](https://github.com/wecking/node-express-template-api/blob/master/modules/account-module/email-dispatcher.js).
+
+To do this on OSX you can simply add them to your .profile or .bashrc file.
+
+	export NL_EMAIL_HOST='smtp.gmail.com'
+	export NL_EMAIL_USER='your.email@gmail.com'
+	export NL_EMAIL_PASS='1234'
+
+### A basic account management system built in Node.js with the following features:
+
+* New User Account Creation
+* Secure Password Reset via Email
+* Ability to Update / Delete Account
+* Session Tracking for Logged-In Users
+* Local Cookie Storage for Returning Users
+* Blowfish-based Scheme Password Encryption
 
 ## Start Server
 
