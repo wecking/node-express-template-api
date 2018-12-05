@@ -1,4 +1,4 @@
-# Nodejs, ExpressJs and MongoDB API development template with basic Todo api
+# Nodejs, ExpressJs and MongoDB API development template with basic User api
 
 ## Usage
 ## For a quick Node js, ExpressJs and MongoDB project startup

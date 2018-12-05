@@ -34,11 +34,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //setup app
-var apiController = require('./controller/apiController');
 var config = require('./config');
 var mongoose = require('mongoose');
-var setUpController =
-    require('./controller/setupController');
 
 // build mongo database connection url //
 process.env.DB_HOST = process.env.DB_HOST || 'ds041347.mlab.com'
@@ -70,9 +67,6 @@ app.use(session({
 );
 
 require('./controller/user')(app);
-
-// setUpController(app);
-// apiController(app);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
